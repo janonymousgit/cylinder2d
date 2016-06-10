@@ -534,7 +534,7 @@ void getResults(SuperLattice2D<T, DESCRIPTOR>& sLattice,
 }
 
 int main(int argc, char* argv[])
-{ 
+{
   /// === 1st Step: Initialization ===
   olbInit(&argc, &argv);
   singleton::directories().setOutputDir("./tmp/");
@@ -544,9 +544,10 @@ int main(int argc, char* argv[])
 
   //clout << argv[0] << endl; -> cylinder2d
   //clout << argv[1] << endl; -> angle
-  
+
   angle = atof(argv[1]);
-  
+  clout << "current angle: " << angle << endl;
+
   LBconverter<T> converter(
     (int) 2,                               // dim
     (T)   L,                               // latticeL_
