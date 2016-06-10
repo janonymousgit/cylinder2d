@@ -70,6 +70,7 @@ const T lengthY = .41+L;
 const T centerCylinderX = 0.2;
 const T centerCylinderY = 0.2+L/2.;
 const T radiusCylinder = 0.05;
+T angle;
 
 /// Stores geometry information in form of material numbers
 void prepareGeometry(LBconverter<T> const& converter,
@@ -391,7 +392,8 @@ public:
 void setBoundaryValues(SuperLattice2D<T, DESCRIPTOR>& sLattice,
                        LBconverter<T> const& converter, int iT,
                        SuperGeometry2D<T>& superGeometry,
-                       ParticleDynamics& particle)
+                       ParticleDynamics& particle
+		      )
 {
 
   OstreamManager clout(std::cout,"setBoundaryValues");
@@ -401,8 +403,8 @@ void setBoundaryValues(SuperLattice2D<T, DESCRIPTOR>& sLattice,
     sLattice.defineExternalField(superGeometry, 1, DESCRIPTOR<T>::ExternalField::porosityIsAt, 1, one);
   }
 
- SmoothIndicatorCircle2D<T,T> circle(particle.getPos(), radiusCylinder, 1., 1.2*converter.getLatticeL());
-  // SmoothIndicatorTriangle2D<T,T> circle(particle.getPos(), radiusCylinder, 1., 1.2*converter.getLatticeL(), 0.);
+//  SmoothIndicatorCircle2D<T,T> circle(particle.getPos(), radiusCylinder, 1., 1.2*converter.getLatticeL());
+  SmoothIndicatorTriangle2D<T,T> circle(particle.getPos(), radiusCylinder, 1., 1.2*converter.getLatticeL(), angle);
 
 
   particle.resetParticleField(circle);
@@ -532,8 +534,7 @@ void getResults(SuperLattice2D<T, DESCRIPTOR>& sLattice,
 }
 
 int main(int argc, char* argv[])
-{
-
+{ 
   /// === 1st Step: Initialization ===
   olbInit(&argc, &argv);
   singleton::directories().setOutputDir("./tmp/");
@@ -541,6 +542,11 @@ int main(int argc, char* argv[])
   // display messages from every single mpi process
   //clout.setMultiOutput(true);
 
+  //clout << argv[0] << endl; -> cylinder2d
+  //clout << argv[1] << endl; -> angle
+  
+  angle = atof(argv[1]);
+  
   LBconverter<T> converter(
     (int) 2,                               // dim
     (T)   L,                               // latticeL_

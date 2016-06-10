@@ -1,0 +1,4 @@
+cat 2cores.txt | grep "drag="				# Gibt alle Zeilen mit "drag=" aus
+
+mpirun -np cores cylinder2d angle | tee output.txt	# Mit Ausgabe
+mpirun -np cores cylinder2d angle > tee output.txt   	# Keine Ausgabe
