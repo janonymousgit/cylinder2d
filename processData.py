@@ -1,5 +1,9 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+"""
+
+"""
+
 import re
 import numpy as np
 import matplotlib.pyplot as plt
@@ -15,9 +19,23 @@ def dragLiftPlot(drag, lift, filename, filetype):
     plt.close()
 
 
+# ENTER DIRECTORY FROM loop.py HERE
+directory = ""
 
-directory = "2016611153745_jan/"
-# file = "2016610221350_jan/0.txt"
+# Otherwise the newest one is chosen
+if directory == "":
+    all_subdirs = [d for d in os.listdir('.') if os.path.isdir(d) if not d.startswith('.')]
+    directory = max(all_subdirs, key=os.path.getmtime)
+
+directory += "/"
+print(directory)
+
+# directory for plot output
+imgPath = directory + "plots/"
+if not os.path.exists(imgPath):
+    os.mkdir(imgPath)
+
+
 reg = "drag=(-*\d*.\d*e*-*\d*); lift=(-*\d*.\d*e*-*\d*)"
 endDrag = []
 endLift = []
@@ -31,7 +49,8 @@ for file in os.listdir(directory):
             endLift.append(hits[-1][1])
             drag = [float(hit[0]) for hit in hits]
             lift = [float(hit[1]) for hit in hits]
-            filename = directory + "plots/" + file[0:-4]
+            filename = imgPath + file[0:-4]
             dragLiftPlot(drag,lift, filename, "png")
 
-dragLiftPlot(endDrag, endLift, directory + "plots/" + "all", "png")
+
+dragLiftPlot(endDrag, endLift, imgPath + "all", "png")
