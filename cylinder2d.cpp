@@ -62,6 +62,7 @@ const int N = 1;        // resolution of the model
 const int M = 1;        // time discretization refinement
 const T Re = 20.;       // Reynolds number
 const T maxPhysT = 16.; // max. simulation time in s, SI unit
+// const T maxPhysT = 32.; // max. simulation time in s, SI unit
 const T L = 0.01/N;     // latticeL
 const T mass = 1.;
 const T g = 0.;
@@ -69,7 +70,9 @@ const T lengthX = 2.2;
 const T lengthY = .41+L;
 const T centerCylinderX = 0.2;
 const T centerCylinderY = 0.2+L/2.;
-const T radiusCylinder = 0.05;
+// const T radiusCylinder = 0.05;
+const T radiusCylinder = 0.10;
+// T radiusCylinder;
 T angle;
 
 /// Stores geometry information in form of material numbers
@@ -546,6 +549,7 @@ int main(int argc, char* argv[])
   //clout << argv[1] << endl; -> angle
 
   angle = atof(argv[1]);
+  //radius = atof(argv[2]);
   clout << "current angle: " << angle << endl;
 
   LBconverter<T> converter(
