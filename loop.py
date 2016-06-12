@@ -6,7 +6,7 @@ from getpass import getuser
 import os
 from multiprocessing import cpu_count
 from math import pi
-import frogress
+# import frogress
 
 # create output directory
 d = datetime.datetime.now()
