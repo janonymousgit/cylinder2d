@@ -24,11 +24,10 @@ directory = ""
 
 # Otherwise the newest one is chosen
 if directory == "":
-    all_subdirs = [d for d in os.listdir('.') if os.path.isdir(d) if not d.startswith('.')]
+    all_subdirs = [d for d in os.listdir('.') if os.path.isdir(d) if not d.startswith('.') if d != "tmp"]
     directory = max(all_subdirs, key=os.path.getmtime)
 
 directory += "/"
-print(directory)
 
 # directory for plot output
 imgPath = directory + "plots/"
@@ -40,7 +39,9 @@ reg = "drag=(-*\d*.\d*e*-*\d*); lift=(-*\d*.\d*e*-*\d*)"
 endDrag = []
 endLift = []
 
-for file in os.listdir(directory):
+# for file in sorted(os.listdir(directory)):
+for num in range(len(os.listdir(directory))-1):
+    file = str(num) + ".txt"
     if not os.path.isdir(directory + file):
         with open(directory + file, "r") as f:
             contents = f.read()

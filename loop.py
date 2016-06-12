@@ -19,7 +19,7 @@ os.mkdir(directory)
 steplength = 1
 angles = range(360)
 angles = [steplength*ang*pi/180 for ang in angles]
-# angles = [ang for ang  in angles if ang == 54]
+# angles = [ang for ang  in angles if ang == 69]
 # np = str(cpu_count())
 np = "3"
 print("starting time: " + str(d.time())[0:8])
@@ -28,13 +28,13 @@ print("output directory: " + directory)
 
 
 counter = 0
-for ang in frogress.bar(angles):
-# for ang in angles:
+# for ang in frogress.bar(angles):
+for ang in angles:
     #print("running simulation " + str(ang+1) + "/" + str(len(angles)))
     outputfile = directory + str(counter) + ".txt"
     command = ["mpirun", "-np", np, "cylinder2d", str(ang)]
     with open(outputfile, "w") as f:
         call(command, stdout=f)
-    imgfile = "tmp/imageData/" + os.listdir("tmp/imageData")[1]
-    call(["mv", imgfile, directory + str(counter)])
+    # imgfile = "tmp/imageData/" + os.listdir("tmp/imageData")[1]
+    # call(["mv", imgfile, directory + str(counter)])
     counter += 1
