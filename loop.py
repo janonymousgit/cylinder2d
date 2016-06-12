@@ -18,7 +18,7 @@ os.mkdir(directory)
 # execution parameters
 steplength = 1
 angles = range(360)
-angles = [ang*pi/180 for ang in angles]
+angles = [steplength*ang*pi/180 for ang in angles]
 # angles = [ang for ang  in angles if ang == 54]
 # np = str(cpu_count())
 np = "3"
